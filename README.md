@@ -4,4 +4,4 @@ Group 2's "Software Engineering Project" project -- in collaboration with Micros
 
 ## Information
 
-Currently coming up with roles and technologies to use!
+This project requires us to create a distributed queue API and a web app to interface it with.
