@@ -4,7 +4,6 @@ stages:
   	- test
 
 variables:
-  	RAILS_ENV: "test"
   	NODE_ENV: "test"
   	GIT_STRATEGY: "clone"
   	CHROME_VERSION: "103"
@@ -17,18 +16,26 @@ build-job:
  	   - node -v
  	   - bash build.sh
 
-deploy-code:
+deploy-frontend:
 	  stage: deploy
 	  needs: build-job
 	  script:
-	    - echo "Deploying code..."
-	    - cd ./backend/desired/folder
-	    - bash deploy.sh
+	    - echo "Deploying frontend..."
+	    - cd ./backend
+	    - bash deployBackend.sh
+
+deploy-backend:
+	  stage: deploy
+	  needs: build-job
+	  script:
+	    - echo "Deploying backend..."
+	    - cd ./frontend
+	    - bash deployFrontend.sh
 
 test-code:
 	  stage: test
 	  needs: deploy-code
 	  script:
-	    - echo "Running tests..."
-	    - cd to/your/desired/folder
-	    - npm run test
+	    - echo "Running frontend tests..."
+	    - cd ./frontend
+	    - npm test
