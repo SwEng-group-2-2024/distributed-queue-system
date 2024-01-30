@@ -34,7 +34,7 @@ deploy-backend:
 
 test-code:
 	  stage: test
-	  needs: deploy-code
+	  needs: deploy-frontend
 	  script:
 	    - echo "Running frontend tests..."
 	    - cd ./frontend
