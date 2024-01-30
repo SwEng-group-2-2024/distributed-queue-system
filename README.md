@@ -8,9 +8,7 @@ This project requires us to create a distributed queue API and a web app to inte
 
 Currently, the technologies we are going to be using are undecided.
 
-## Getting Started
-
-### Frontend
+## Frontend
 
 In the project directory, you can run:
 
@@ -37,7 +35,7 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### Backend
+## Backend
 
 The backend can be run with:
 
