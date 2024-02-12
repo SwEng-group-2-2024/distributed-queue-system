@@ -1,38 +1,51 @@
-.App {
+
+.profile {
+  max-width: 200px;
+  margin: 30px auto;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
   text-align: center;
+  color: rgb(2, 2, 68);
+  border: 2px solid rgb(2, 2, 3);
+  background-color: rgb(189, 214, 235);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.header {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  margin-bottom: 20px;
 }
 
-.App-link {
-  color: #61dafb;
+
+.profile-icon,
+.telephone-icon {
+  width: 50px;
+  height: 50px;
+  border: 2px solid rgb(4, 4, 5);
+  margin-right: 10px;
+  
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.phone {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.status {
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+}
+
+.status select {
+  margin-left: 10px;
+  border: 2px solid rgb(4, 4, 5);
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.status select:focus {
+  outline: none;
 }
