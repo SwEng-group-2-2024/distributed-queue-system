@@ -45,7 +45,7 @@ let queue = [];
 // });
 
 app.post("/enqueue", (req, res) => {
-  const message = req.body.message;
+  const message = req.body;
   // Add the message to the queue
   queue.push(message);
   res.status(200).send("Message enqueued successfully / Delivered.");
@@ -72,7 +72,7 @@ app.get("/dequeue", (req, res) => {
   if (!message) {
     res.status(404).send("Queue is empty.");
   } else {
-    res.status(200).json({ message });
+    res.status(200).json(message);
   }
 });
 
