@@ -10,6 +10,21 @@ app.use(bodyParser.json());
 // object to store different queues
 let queues = {};
 
+// API to create new queue
+app.post("/queue/:queue_name/create", (req, res) => {
+
+  const { queue_name } = req.params;
+
+  // Check if the queue already exists and send error is already exist
+  if (queues[queue_name]) {
+    res.status(400).send("Queue already exists.");
+  } else {
+    // else creates it
+    queues[queue_name] = [];
+    res.status(200).send(`Queue "${queue_name}" created successfully.`);
+  }
+});
+
 // Http Api to enqueue a message.
 // front end will have to call this api to send their message to the backend for processing.
 
