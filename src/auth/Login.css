@@ -32,7 +32,19 @@ body, html {
   width: 100%; 
 }
 
-.input, .submitBtn {
+.input {
+  align-items: center;
+  justify-content: center;
+  width: 100%; 
+  padding: 10px; 
+  background-color: #FFFFFF;
+  color: #042B5C;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif; 
+}
+
+.submitBtn
+{
   align-items: center;
   justify-content: center;
   width: 100%; 
