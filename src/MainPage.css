@@ -1,0 +1,48 @@
+
+
+
+#template {
+    position: absolute;
+    left: 0px;
+    top: 74px;
+    width: 563px;
+    height: 1045px;
+    background-color: #D9E1FE;
+}
+#bar {
+    position: fixed;
+    margin-top: 4em;
+    background-color: #f0f0f0;
+    width: 100%;
+    top: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: left;
+    height: 5%;
+    min-height: 40px;
+
+}
+#nameLable {
+    
+    
+    color: #042B5C;
+    font-size: 25px;
+    margin-left: 0.5em;
+    margin-top: 0.2em;
+}            
+
+.M{
+    width: 100%;
+}
+
+*{
+    overflow: hidden; 
+}
+.pro{
+  
+    width: 2em; 
+    height: auto; 
+    margin-top: 0.5em;
+    margin-left: 1em;
+}

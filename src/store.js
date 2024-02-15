@@ -1,4 +1,4 @@
-import { createStore } from 'redux';
+import { createStore, combineReducers } from 'redux';
 
 
 const SIGN_UP_SUCCESS = 'SIGN_UP_SUCCESS';

@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import './SignUp.css';
 import { useDispatch } from 'react-redux';
 import { signUpSuccess } from './store';
-
-function SignUp() {
+import { Link } from 'react-router-dom'; // Import Link
+function SignUp({ setIsLoggedIn }) {
   const dispatch = useDispatch();
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
@@ -18,7 +18,7 @@ function SignUp() {
 
   const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(email).toLowerCase());
 
-  
+
   const validatePassword = (password) => /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(String(password));
 
   const handleSubmit = async (e) => {
@@ -54,6 +54,7 @@ function SignUp() {
         setEmail('');
         setPhoneNumber('');
         setPassword('');
+        setIsLoggedIn(true);
       } else {
         console.error('Registration failed:', response.statusText);
       }
@@ -85,6 +86,9 @@ function SignUp() {
 
           <button type="submit" className="submitBtn">Sign Up</button>
         </form>
+        <p className="navigationLink">
+          Already have an account? <Link to="/">Log In</Link>
+        </p>
       </div>
     </div>
   );
