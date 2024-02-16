@@ -33,6 +33,8 @@ jobs:
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
         with:
+          app_location: "/backend" # App source code path
+          api_location: "/backend/index.js" # Api source code path - optional
           name: node-app
           path: release.zip
 
