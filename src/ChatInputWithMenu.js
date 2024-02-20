@@ -16,7 +16,7 @@ function ChatInputWithMenu() {
   const toggleMenu = () => {
     setShowMenu(!showMenu);
   };
-
+// here we can put the post request
   return (
     <div className="chat-input-container">
       <div className="chat-input-bar">
