@@ -52,7 +52,7 @@ function LoginPage ({ setIsLoggedIn })  {
             <button type="submit" className="submitBtn">log in</button>
           </form>
           <p className="navigationLink">
-          Don't have an account? <Link to="/signup">Sign Up</Link>
+          don't have an account? <Link to="/signup">Sign Up</Link>
         </p>
         </div>
       </div>

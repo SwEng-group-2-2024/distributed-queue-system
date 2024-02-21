@@ -83,6 +83,7 @@ app.post("/enqueue", async (req, res) => {
     await sql.query(query); // Execute SQL query to insert message into the database
     await sql.query(ddb);
     res.status(200).send("Message enqueued successfully / Delivered."); // Send success response
+    res.json({ message: message });
     queue.push(message, timestamp, sender); // no need to keep a local queue but just for testing purposes, why not
   } catch (error) {
     console.log("Error enqueuing message because of: ", error);
