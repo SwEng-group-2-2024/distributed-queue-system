@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './SignUp.css';
 import { useDispatch } from 'react-redux';
 import { signUpSuccess } from './store';
+import logo from './fence.png';
 import { Link } from 'react-router-dom'; // Import Link
 function SignUp({ setIsLoggedIn }) {
   const dispatch = useDispatch();
@@ -55,9 +56,7 @@ function SignUp({ setIsLoggedIn }) {
         setPhoneNumber('');
         setPassword('');
         setIsLoggedIn(true);
-      } else if (response.unauthorized)
-      console.error('Incorrect email or password:', response.statusText);
-        else {
+      } else {
         console.error('Registration failed:', response.statusText);
       }
     } catch (error) {
@@ -65,11 +64,13 @@ function SignUp({ setIsLoggedIn }) {
     }
   };
 
+  
   return (
-    <div className="Outer">
-      <div className="logo"></div>
-      <div className="Main">
-        <h1>Sign Up</h1>
+    <div className="return">
+      <img src={logo} style={{ width: '500px', height: '382px' }} alt="Fence logo" />
+      <div className="login">
+      
+        <h1>sign up</h1>
         <form className="inputBox" onSubmit={handleSubmit}>
 
           <input placeholder="Full Name" className="input" value={fullName} onChange={(e) => setFullName(e.target.value)} />
@@ -86,14 +87,17 @@ function SignUp({ setIsLoggedIn }) {
           {passwordError && <div className="error">{passwordError}</div>}
 
 
-          <button type="submit" className="submitBtn">Sign Up</button>
+          <button type="submit" className="submitBtn">sign up</button>
         </form>
         <p className="navigationLink">
-          Already have an account? <Link to="/">Log In</Link>
-        </p>
+        don't have an account? <Link to="/login">log in</Link>
+      </p>
       </div>
     </div>
-  );
+    
+    );
+
+  
 }
 
 export default SignUp;

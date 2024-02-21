@@ -2,18 +2,18 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import { Provider } from 'react-redux';
-import store from './store'; 
-import storelog from './storelog'; 
+import { Provider as ReduxProvider } from 'react-redux';
+import store from './store'; // Redux store for main app state
+import loginStore from './loginStore'; // Redux store for login state
 
 ReactDOM.render(
   <React.StrictMode>
-
-    <Provider storelog={storelog}>
+    <ReduxProvider store={store}>
       <App />
-    </Provider>
-
-    
+    </ReduxProvider>
+    <ReduxProvider store={loginStore}>
+      <App />
+    </ReduxProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

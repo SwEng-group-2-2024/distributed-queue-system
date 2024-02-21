@@ -4,9 +4,8 @@ import { useDispatch } from 'react-redux';
 import { loginSuccess } from './storelog.js';
 import logo from './fence.png';
 import {Link} from 'react-router-dom';
-const PORT = process.env.PORT || 4000;
 
-function LoginPage ()  {
+function LoginPage ( { setIsLoggedIn } )  {
    const dispatch = useDispatch();
 
     const [email, setEmail] = useState('');
@@ -27,6 +26,7 @@ function LoginPage ()  {
             });
             if (response.ok) {
               dispatch(loginSuccess());
+              setIsLoggedIn(true);
             } else {
               console.error('incorrect login or password:', response.statusText);
               setPasswordError('incorrect login or password');
@@ -53,7 +53,7 @@ function LoginPage ()  {
           </form>
 
           <p className="navigationLink">
-          Don't have an account? <Link to="/signup">Sign Up</Link>
+          don't have an account? <Link to="/signup">sign up</Link>
         </p>
 
 
