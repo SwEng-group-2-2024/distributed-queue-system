@@ -10,7 +10,7 @@ import { NavbarContainer,
          OpenLinksButton,
          NavbarLinkExtended,
 } from "./Navbar.style"; 
-import ProfileImg from './iconProfile.webp'
+import ProfileImg from './iconProfile.png'
 
 
 
