@@ -27,7 +27,7 @@ function MainPage({ setIsLoggedIn }) {
     <div className="M">
       <NavBar onProfileClick={toggleProfilePopup} />
       {isProfilePopupVisible && <ProfilePopup onClose={toggleProfilePopup} />}
-      <button onClick={handleLogout}>log out</button> 
+      <button onClick={handleLogout}>Log Out</button> 
       <body>
   
     <div id="bar">      <GoPersonFill className="pro"/>    <div id="nameLable">Steph</div>
