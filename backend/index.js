@@ -22,6 +22,6 @@ app.get('/ready', (req, res) => {
     res.status(200).send(JSON.stringify(message));
 });
 
-app.listen(4000, () => {
-    console.log('Listening on port 4000')
+app.listen(9000, () => {
+    console.log('Listening on port 9000')
 });

@@ -55,7 +55,9 @@ function SignUp({ setIsLoggedIn }) {
         setPhoneNumber('');
         setPassword('');
         setIsLoggedIn(true);
-      } else {
+      } else if (response.unauthorized)
+      console.error('Incorrect email or password:', response.statusText);
+        else {
         console.error('Registration failed:', response.statusText);
       }
     } catch (error) {
