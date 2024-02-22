@@ -1,16 +1,22 @@
 import React, {useState} from "react";
 import { NavbarContainer,
          LeftContainer, 
+         MiddleContainer,
          RightContainer,
          NavbarInnerContainer,
          NavbarExtendedContainer,
          NavbarLinkContainer,
          NavbarLink,
          Profile,
+         Logo,
          OpenLinksButton,
          NavbarLinkExtended,
 } from "./Navbar.style"; 
-import ProfileImg from './iconProfile.webp'
+
+
+import ProfileImg from './iconProfile.png'
+import logo from './fence.png';
+
 
 
 
@@ -39,6 +45,9 @@ function Navbar({ onProfileClick }) {
                     </OpenLinksButton>
                 </NavbarLinkContainer>
             </LeftContainer>
+            <MiddleContainer>
+                <Logo src={logo}></Logo>
+            </MiddleContainer>
             <RightContainer> 
             <Profile src={ProfileImg} onClick={onProfileClick}></Profile>
             </RightContainer>

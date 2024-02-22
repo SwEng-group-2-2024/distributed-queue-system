@@ -1,24 +1,30 @@
 import styled from "styled-components"; 
 import {Link} from "react-router-dom";
+import logo from './fence.png';
 
 export const NavbarContainer = styled.nav`
-    width: 100%;
+    width: 100%; 
     height: ${(props) => (props.extendedNavbar ? "100vh" : "80px")};
     background-color: #043b5c;
-    display: flex;
+    display: flex; 
+
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    position: sticky; // Keep navbar at the top
-    top: 0; // At the very top of the viewport
-    z-index: 1000; // Ensure it's above other content
 `;
 
 export const LeftContainer = styled.div`
-    flex: 70%; //alow for search bar
+    flex: 50%; //alow for search bar
     display: flex;
     align-items: center; 
     padding-left: 5%; 
+    `
+
+export const MiddleContainer = styled.div`
+    flex: 20%; 
+    display: flex;
+    align-items: center; 
+    
 `
 
 export const RightContainer = styled.div`
@@ -56,6 +62,12 @@ export const Profile=styled.img`
     margin: 10px; 
     max-width: 180px; 
     height: auto; 
+`;
+
+
+export const Logo=styled.img`
+    margin: 10px; 
+    height: 50px; 
 `;
 
 //This allows the screen to adapt depending on screen size
