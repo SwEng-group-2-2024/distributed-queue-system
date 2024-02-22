@@ -1,5 +1,6 @@
 import styled from "styled-components"; 
 import {Link} from "react-router-dom";
+import logo from './fence.png';
 
 export const NavbarContainer = styled.nav`
     width: 100%; 
@@ -13,10 +14,17 @@ export const NavbarContainer = styled.nav`
 `;
 
 export const LeftContainer = styled.div`
-    flex: 70%; //alow for search bar
+    flex: 50%; //alow for search bar
     display: flex;
     align-items: center; 
     padding-left: 5%; 
+    `
+
+export const MiddleContainer = styled.div`
+    flex: 20%; 
+    display: flex;
+    align-items: center; 
+    
 `
 
 export const RightContainer = styled.div`
@@ -54,6 +62,12 @@ export const Profile=styled.img`
     margin: 10px; 
     max-width: 180px; 
     height: auto; 
+`;
+
+
+export const Logo=styled.img`
+    margin: 10px; 
+    height: 50px; 
 `;
 
 //This allows the screen to adapt depending on screen size
