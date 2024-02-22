@@ -5,7 +5,7 @@ const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 8000;
 
 
 app.use(cors());
@@ -43,21 +43,15 @@ app.post('/api/login', async (req, res) => {
 
   try {
     const pool = await getConnection();
+    const loginTime = new Date().toISOString(); // Get the current timestamp
     if (pool) {
         const result = await pool.request()
         .input('Email', sql.NVarChar(255), email)
-        .query('SELECT * FROM Users WHERE Email = @Email;');
-        if (result.recordset.length > 0)
+        .input('Password', sql.NVarChar(255), hashedPassword)
+        .query('INSERT INTO Sessions (Email, LoginTime) SELECT @Email, CURRENT_TIMESTAMP WHERE EXISTS (SELECT 1 FROM Users WHERE Email = @Email AND Password = @Password);');
+        if (!result.rowsAffected || result.rowsAffected[0] === 0)
         {
-            if (await bcrypt.compare(hashedPassword, result.recordset[0].Password))
-            {
-                res.json({ message: "login successful" });
-                const loginTime = new Date().toISOString(); // Get the current timestamp
-                const result = await pool.request()
-                .input('Email', sql.NVarChar(255), email)
-                .input('LoginTime', sql.DateTime, loginTime)
-                .query('INSERT INTO Sessions VALUES (@Email, @LoginTime);');
-            }
+          res.json({ message: "login successful" });
         }
       else
        res.status(401).json({ message: "incorrect username or password" });

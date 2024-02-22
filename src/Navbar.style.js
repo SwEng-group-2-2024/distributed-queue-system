@@ -2,14 +2,16 @@ import styled from "styled-components";
 import {Link} from "react-router-dom";
 
 export const NavbarContainer = styled.nav`
-    width: 100%; 
+    width: 100%;
     height: ${(props) => (props.extendedNavbar ? "100vh" : "80px")};
     background-color: #043b5c;
-    display: flex; 
-
+    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    position: sticky; // Keep navbar at the top
+    top: 0; // At the very top of the viewport
+    z-index: 1000; // Ensure it's above other content
 `;
 
 export const LeftContainer = styled.div`

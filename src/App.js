@@ -7,7 +7,7 @@ import MainPage from "./MainPage";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState(true)
 
   return (
     <Router>

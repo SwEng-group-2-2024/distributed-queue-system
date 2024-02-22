@@ -7,16 +7,46 @@ function ChatInputWithMenu() {
   const handleInputChange = (event) => {
     setMessage(event.target.value);
   };
+  const sendingTime = new Date().toISOString();
+  const senderID = Math.floor(Math.random() * 10).toString;
 
-  const handleSendMessage = () => {
+  const handleSendMessage = async (e) => {
     console.log('Message to send:', message);
     setMessage(''); // Clear input after sending
+    try {
+        const response = await fetch('http://localhost:3001/enqueue', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+  
+          body: JSON.stringify({message, sendingTime, senderID}),
+        });
+        if (response.ok) {
+          console.log('message sent!', response.statusText);
+        } 
+      } catch (error) {
+        console.error('error sending message:', error);
+      }
   };
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
   };
-
+  
+  const handleSending = async (e) => { // function to handle the login
+    try {
+        const response = await fetch('http://localhost:3001/enqueue', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+  
+          body: JSON.stringify({message, sendingTime, senderID}),
+        });
+        if (response.ok) {
+          console.log('message sent!', response.statusText);
+        } 
+      } catch (error) {
+        console.error('error sending message:', error);
+      }
+} ;
   return (
     <div className="chat-input-container">
       <div className="chat-input-bar">
