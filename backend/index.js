@@ -1,9 +1,8 @@
 const express = require("express");
-const bodyParser = require("body-parser");
-const sql = require("mssql"); // connect to SQL Server
+var bodyParser = require("body-parser");
 
 const app = express();
-// app.use(express.static("public"));
+app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -61,54 +60,83 @@ async function connectAndQuery() {
     .catch((err) => console.error("Error connecting to SQL Server", err));
 }
 let queue = [];
+// object to store different queues
+// let queues = {};
 
-app.post("/enqueue", async (req, res) => {
-  // I made the function async so i can use await - basically to make sure the message is enqueued before sending the response
+// For now we dont need to create a queue
+// API to create new queue
 
-  // Extract data from the request body - Json object
-  const { message, timestamp, sender } = req.body;
+// app.post("/queue/:queue_name/create", (req, res) => {
 
-  // basically an sql query to insert the data into the database
-  const query = `
-    INSERT INTO Queue (message, timestamp, sender)
-    VALUES ('${message}', '${timestamp}', '${sender}');
-    `;
+//   const { queue_name } = req.params;
 
-  // this code below tries to connect to the db to insert the message, sends appropriate response if successful or not
-  try {
-    await sql.query(query); // Execute SQL query to insert message into the database
-    res.status(200).send("Message enqueued successfully / Delivered."); // Send success response
-    // queue.push(req.body);
-    queue.push(message, timestamp, sender); // no need to keep a local queue but just for testing purposes, why not
-  } catch (error) {
-    console.log("Error enqueuing message because of: ", error);
-    res.status(500).send("Error enqueuing message.");
+//   // Check if the queue already exists and send error is already exist
+//   if (queues[queue_name]) {
+//     res.status(400).send("Queue already exists.");
+//   } else {
+//     // else creates it
+//     queues[queue_name] = [];
+//     res.status(200).send(`Queue "${queue_name}" created successfully.`);
+//   }
+// });
+
+// Http Api to enqueue a message.
+// front end will have to call this api to send their message to the backend for processing.
+
+// app.post("/queue/:queue_name/enqueue", (req, res) => {
+//   const { queue_name } = req.params;
+//   const message = req.body.message;
+
+//     // if the queue that frontend specifies does not exits, create it
+//   if (!queues[queue_name]) {
+//     queues[queue_name] = [];
+//   }
+//     // add the message to the specified queue
+//   queues[queue_name].push(message);
+
+//   res.status(200).send("Message enqueued successfully / Delivered.");
+// });
+
+app.post("/enqueue", (req, res) => {
+  const message = req.body;
+  // Add the message to the queue
+  queue.push(message);
+  res.status(200).send("Message enqueued successfully / Delivered.");
+});
+
+// Dequeue a message from the queue.
+// When the frontend says they're ready to process a new message, they will call this.
+// It will send the message that has been waiting the longest(FIFO).
+// app.get("/queue/:queue_name/dequeue", (req, res) => {
+//     const { queue_name } = req.params;
+//     // get and remove the oldest message from the specified queue, basically FIFO
+//   const message = queues[queue_name] && queues[queue_name].shift();
+
+//   if (!message) {
+//     res.status(404).send("Queue is empty or does not exist.");
+//   } else {
+//     res.status(200).json({ message });
+//   }
+// });
+
+app.get("/dequeue", (req, res) => {
+  // Get and remove the oldest message from the queue (FIFO)
+  const message = queue.shift();
+  if (!message) {
+    res.status(404).send("Queue is empty.");
+  } else {
+    res.status(200).json(message);
   }
 });
 
-// i haven't added the dequeue function yet(we said we're not deleting the messages?), we still have to discuss how to go about it
-app.get("/dequeue", async (req, res) => {
-  try {
-    // SQL query to select the oldest message from the Queue table, still does not mean it is a queue just yet
-    const query = `SELECT TOP 1 message, timestamp, sender FROM Queue  WHERE ID = (SELECT MIN(ID) FROM Queue) ORDER BY ID`; // gets message with the lowest ID - oldest message
-    // const query = `SELECT TOP 1 message, timestamp, sender FROM Queue  WHERE ID = 1`;
-
-    // Execute SQL query
-    const result = await sql.query(query);
-
-    // send message in JSON response, if found else, error message
-    if (result.recordset.length > 0) {
-      res.status(200).send(result.recordset[0]);
-      console.log("Dequeued message:", result.recordset[0]);
-    } else {
-      res.status(404).send("No message in queue.");
-    }
-  } catch (error) {
-    // just usual try and catch block to handle errors
-    console.error("Error dequeuing message:", error);
-    res.status(500).send("Error dequeuing message.");
-  }
-});
+// no need to list queues for now
+// List Queues API
+// incase the front end wants to see all the queues that are available.
+// app.get("/queues", (req, res) => {
+//     // this line gets all the different queues in the queues object from line 11
+//   const queueNames = Object.keys(queues);
+//   res.status(200).json({ queues: queueNames });
+// });
 
 app.listen(4000, () => {
   console.log("Listening on port 4000");

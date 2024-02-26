@@ -1,0 +1,65 @@
+.profile-popup{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-Color: white;
+    width: 30%;
+    height: 30%;
+   min-height: 270px;
+   min-width: 200px;
+    padding: 20px;
+    z-Index: 100 ;
+}
+
+
+.profile {
+    max-width: 200px;
+    margin: 30px auto;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+    color: rgb(2, 2, 68);
+    border: 2px solid rgb(2, 2, 3);
+    background-color: rgb(189, 214, 235);
+  }
+  
+  .header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  
+  .profile-icon,
+  .telephone-icon {
+    width: 50px;
+    height: 50px;
+    border: 2px solid rgb(4, 4, 5);
+    margin-right: 10px;
+    
+  }
+  
+  .phone {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .status {
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+  }
+  
+  .status select {
+    margin-left: 10px;
+    border: 2px solid rgb(4, 4, 5);
+    padding: 5px 10px;
+    border-radius: 5px;
+  }
+  
+  .status select:focus {
+    outline: none;
+  }
