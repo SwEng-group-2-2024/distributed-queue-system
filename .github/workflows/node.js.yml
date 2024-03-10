@@ -24,5 +24,4 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: npm ci
-    - run: npm run build --max_old_space_size=4096 --prod --if-present
     - run: npm test
