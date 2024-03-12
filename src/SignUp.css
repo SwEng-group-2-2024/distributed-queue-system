@@ -1,0 +1,66 @@
+/* Base styles */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  .Outer {
+    width: 100%;
+    min-height: 100vh;
+    background-color: #042B5C;
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    justify-content: center;
+    padding: 20px; 
+  }
+  
+  
+  .Main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #D9E1FE;
+    padding: 20px; 
+    box-sizing: border-box; 
+    max-width: 500px; 
+    width: 100%; 
+  }
+  
+  .input, .submitBtn {
+    width: 100%; 
+    margin: 10px 0; 
+    padding: 10px; 
+    box-sizing: border-box;
+  }
+  
+  .inputBox {
+    width: 100%; 
+  }
+  
+  .logo {
+    background-color: white;
+    max-width: 200px;
+    height: auto;
+    margin-bottom: 20px; 
+  }
+  
+  /* Responsive adjustments */
+  @media (min-width: 768px) {
+    .Outer {
+      flex-direction: row; 
+      justify-content: space-around; 
+    }
+    .Main {
+      margin: 0; 
+    }
+  }
+  
+  @media (max-width: 767px) {
+    .input, .submitBtn {
+      width: calc(100% - 20px); 
+    }
+  }
+  
