@@ -1,0 +1,67 @@
+* { 
+  box-sizing: border-box; 
+  margin: 0px; 
+  padding: 0px; 
+}
+
+#root {
+  height: 100%;
+}
+
+html, 
+body {
+  font-family: Arial, Helvetica, sans-serif; 
+  margin: 0%; 
+  padding: 0%;
+  min-height: 100vh; 
+  height: 100%; 
+}
+
+.container {
+  height: 100%; 
+  transition: background-color 0.25s ease-in-out; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+}
+
+.card {
+  background: linear-gradient(
+    #8470ff 11.48%, 
+    #5e69f3 37.41%, 
+    #5e46f2 45.95%, 
+    #515efd 54.49%, 
+    #4387ee 63.88%, 
+    #709ee2 75.84%, 
+    #257afb 82.24%, 
+    #5498fe 93.45%
+  );
+  box-shadow: inset 0px 4px 15px rgba(0, 0, 0, 0.25); 
+  width: 35%;
+  height: 250px; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  border-radius: 20px; 
+  flex-direction: columns; 
+}
+
+.header{
+  margin-bottom: 100px; 
+  font-size: 30px; 
+  color: white; 
+}
+
+span{
+  font-weight: bold; 
+}
+
+.input{
+  width: 50%; 
+  height: 45px; 
+  outline: none; 
+  border: none; 
+  font-size: 20px; 
+  border-radius: 20px; 
+  padding-left: 50px;
+}
