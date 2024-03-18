@@ -1,0 +1,68 @@
+:root {
+  --body_background: white;
+  --body_color: black;
+  --link-color: #f0f0f0
+}
+
+[data-theme="dark"]{
+  --link-color: black;
+  --body_background: black;
+  --body_color: white;
+}
+.chat-input-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  transform: scaleX(1);
+  width: 100%;
+  color: black;
+}
+
+.chat-input-bar {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  background-color: var(--link-color); 
+}
+
+.options-button, .send-button {
+  margin: 0 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.message-input {
+  flex: 1;
+  padding: 10px;
+  margin: 0 5px;
+  border: 1px solid var(--body_color);
+  border-radius: 20px;
+}
+
+.dropdown-menu {
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  background-color: var(body_background);
+  box-shadow: 0px 8px 16px 0px var(--body_background);
+  z-index: 1;
+  width: 120px;
+}
+
+.dropdown-menu div {
+  padding: 10px;
+  cursor: pointer;
+  text-align: center;
+  border-bottom: 1px solid var(--body_color);
+}
+
+.dropdown-menu div:last-child {
+  border-bottom: none;
+}
+
+.dropdown-menu div:hover {
+  background-color: var(--body_color);
+}

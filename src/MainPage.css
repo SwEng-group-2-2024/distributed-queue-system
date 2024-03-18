@@ -1,0 +1,100 @@
+@font-face {
+    font-family: 'Inter';
+    src: url('./Inter-VariableFont_slnt,wght.ttf') format('truetype');
+  }
+
+  :root {
+    --body_background: white;
+    --body_color: black;
+    --link_color: navy;
+    --body_link: #f0f0f0;
+    --body_swap: white;
+    --nav_swap: #043b5c
+  }
+  
+  [data-theme="dark"]{
+    --body_background: black;
+    --body_color: white;
+    --link_color: white;
+    --body_link: black;
+    --body_swap:#242526;
+    --nav_swap: rgba(22, 22, 99, 0.196);
+  }
+
+  body {
+    
+    background-color: var(--body_swap);
+  }
+  
+#template {
+    position: absolute;
+    display: flex;
+    flex-direction: row; 
+    left: 0px;
+    top: 74px;
+    width: 563px;
+    height: 1045px;
+    
+}
+#bar {
+    position: fixed;
+    margin-top: 5em;
+    background-color: var(--body_link);
+    width: 100%;
+    top: 0;
+    display: flex;
+    flex-direction: row; 
+    align-items: center;
+    justify-content: left;
+    height: 6%;
+    min-height: 40px;
+    color:var(--body_color);
+}
+#nameLable {
+    
+    
+    color: var(--link_color);
+    font-size: 20px;
+    margin-left: 0.5em;
+    margin-top: 0.2em;
+    margin-right: 0.25em;
+}            
+
+#logoutButton
+{
+    display: flex;
+    flex-direction: row; 
+  align-items: center;
+  justify-content: center;
+  width: 20%; 
+  padding: 10px; 
+  background-color: #D9E1FE;
+  color: #042B5C;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif; 
+}
+
+.M{
+    width: 100%;
+}
+
+
+
+*{
+    overflow: hidden; 
+}
+.pro{
+  
+    width: 2em; 
+    height: auto; 
+    margin-top: 0.5em;
+    margin-left: 1em;
+}
+
+
+.messageContainer {
+    max-height: 800px; /* Adjust based on your layout */
+    overflow-y: auto;
+    padding: 10px;
+    background-color: black;
+  }
