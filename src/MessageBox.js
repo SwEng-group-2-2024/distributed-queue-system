@@ -47,6 +47,9 @@ function MessageComponent({ message, imageUrl, time, isCurrentUser }) {
     heart: 0
   });
 
+  // State for uploaded file
+  const [file, setFile] = useState(null);
+
   // Function to toggle message actions menu
   const toggleActions = () => {
     setShowActions(!showActions);
@@ -58,6 +61,12 @@ function MessageComponent({ message, imageUrl, time, isCurrentUser }) {
       ...prevState,
       [reactionType]: prevState[reactionType] + 1
     }));
+  };
+
+  // Function to handle file upload
+  const handleFileUpload = (event) => {
+    const uploadedFile = event.target.files[0];
+    setFile(uploadedFile);
   };
 
   return (
@@ -101,6 +110,13 @@ function MessageComponent({ message, imageUrl, time, isCurrentUser }) {
           {reactions.thumbsUp > 0 && <sup style={{ marginLeft: '5px' }}>{reactions.thumbsUp}</sup>}
           {reactions.heart > 0 && <sup style={{ marginLeft: '5px' }}>{reactions.heart}</sup>}
         </div>
+        {/* File Upload */}
+        {isCurrentUser && (
+          <div style={{ marginTop: '10px' }}>
+            <input type="file" onChange={handleFileUpload} />
+            {file && <div>File selected: {file.name}</div>}
+          </div>
+        )}
       </div>
     </div>
   );
