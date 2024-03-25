@@ -3,10 +3,11 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-Color: white;
+    min-width: 190px;
     width: 30%;
-    height: 30%;
-   min-height: 270px;
+    height: 40%;
+    min-height: 400px;
+   
    min-width: 200px;
     padding: 20px;
     z-Index: 100 ;
@@ -15,6 +16,8 @@
 
 .profile {
     max-width: 200px;
+    min-width: 190px;
+    min-height: 300px;
     margin: 30px auto;
     padding: 10px;
     border: 1px solid #ccc;
