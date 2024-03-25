@@ -1,6 +1,7 @@
 const { getPool } = require("./database");
 const retryWithExponentialBackoff = require("./retryWithExponentialBackoff");
 
+
 exports.enqueueMessage = async (inputMessage) => {
   const { message, timestamp, sender } = inputMessage;
   let parsedTimestamp;
@@ -25,6 +26,7 @@ exports.enqueueMessage = async (inputMessage) => {
     VALUES ('${message}', '${sender}', '${uniqueMessageID}', '${parsedTimestamp}');
   `;
 
+  
   try {
     const pool = await getPool();
     await retryWithExponentialBackoff(() => pool.request().query(query));
@@ -34,11 +36,17 @@ exports.enqueueMessage = async (inputMessage) => {
       sender,
       uniqueMessageID,
     };
+
+    // Log the message
+    await exports.logMessage(uniqueMessageID, sender);
+
     return { message: createdMessage };
   } catch (error) {
     console.log("Error enqueueing message:", error);
     throw new Error("Error enqueueing message.");
   }
+
+  
 };
 
 exports.dequeueMessage = async () => {
@@ -68,6 +76,26 @@ exports.dequeueMessage = async () => {
     // Retry with exponential backoff
     await retryWithExponentialBackoff(dequeueMessage);
   }
+};
+
+exports.logMessage = async (uniqueMessageID, sender) => {
+
+    const query = `INSERT INTO MessageLog (uniqueMessageID, Sender) VALUES ('${uniqueMessageID}', '${sender}')`;
+
+  try {
+    const pool = await getPool();
+    await retryWithExponentialBackoff(() => pool.request().query(query));
+    const createdMessage = {
+      sender,
+      uniqueMessageID,
+    };
+
+
+    return { message: createdMessage };
+  } catch (error) {
+    console.log("Error logging message:", error);
+    throw new Error("Error logging message.");
+  } 
 };
 
 // Helper function to generate a unique Message ID using SHA-256 hashing
