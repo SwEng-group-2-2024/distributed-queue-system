@@ -1,16 +1,8 @@
 const express = require("express");
-const taskController = require("./taskController");
+const controller = require("./controller");
 const router = express.Router();
-const logger = require("./logger");
-const cors = require("cors");
 
-router.use(cors());
-
-// Change this from "/tasks" to "/" to correctly handle requests to "/api/tasks"
-router.post("/tasks/enqueue", taskController.createTask);
-
-// Adjusted to handle GET requests at "/api/tasks/:taskId"
-router.get("/tasks/dequeue", taskController.getNextTask);
+router.post("/message/enqueue", controller.enqueueMessage);
+router.get("/message/dequeue", controller.dequeueMessage);
 
 module.exports = router;
-
