@@ -36,3 +36,22 @@
     transform: rotate(360deg);
   }
 }
+
+/* Light theme variables */
+:root {
+  --background-color: #fff; /* Light background */
+  --text-color: #000; /* Dark text */
+  --navbar-background-color: #043b5c;
+  --link-color: #000;
+  /* Add other variables as needed */
+}
+
+/* Dark theme variables */
+[data-theme="dark"] {
+  --background-color: #fff; /* Dark background */
+  --text-color: #FAFAFA; /* Light text */
+  --navbar-background-color: #333; /* Example dark navbar background */
+  --link-color: #ddd;
+  /* Add other variables as needed */
+}
+

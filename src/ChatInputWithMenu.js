@@ -9,6 +9,11 @@ function ChatInputWithMenu() {
   };
   const sendingTime = new Date().toISOString();
   const senderID = Math.floor(Math.random() * 10).toString;
+  const [color, setColor] = useState("black");
+
+  const styleObj = {
+    backgroundColor: color
+  }
 
   const handleSendMessage = async (e) => {
     console.log("Message to send:", message);
@@ -55,7 +60,7 @@ function ChatInputWithMenu() {
     }
   };
   return (
-    <div className="chat-input-container">
+    <div  style= {styleObj}  className="chat-input-container">
       <div className="chat-input-bar">
         <button className="options-button" onClick={toggleMenu}>
           +
@@ -76,6 +81,12 @@ function ChatInputWithMenu() {
           Send
         </button>
       </div>
+
+
+    
+
+
+
     </div>
   );
 }

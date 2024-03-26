@@ -14,14 +14,23 @@ import {
   OpenLinksButton,
   NavbarLinkExtended,
 } from "./Navbar.style";
-import ProfileImg from "./iconProfile.webp"; // If you're using this, ensure the import is correct
+import ProfileImg from "./iconProfile.webp"; 
 import { GoPersonFill } from "react-icons/go";
 import ChatInputWithMenu from "./ChatInputWithMenu";
+import DarkMode from './DarkMode';
+import Dropdown from './SettingPage'
+import SettingPage from "./SettingPage";
+import { IoMdColorPalette } from "react-icons/io";
 
 function MainPage({ setIsLoggedIn }) {
   const [isProfilePopupVisible, setProfilePopupVisible] = useState(false);
   const [messages, setMessages] = useState([]);
   const messagesEndRef = useRef(null);
+  const [color, setColor] = useState("white"); 
+  const mainPageStyle = {
+    backgroundColor: color // Adding !important here
+  };
+
 
   const toggleProfilePopup = () =>
     setProfilePopupVisible(!isProfilePopupVisible);
@@ -48,12 +57,18 @@ function MainPage({ setIsLoggedIn }) {
       console.error("There was a problem with your fetch operation:", error);
     }
   }
+  
 
   useEffect(() => {
     const interval = setInterval(fetchMessages, 5000); // Fetch messages every interval
 
     return () => clearInterval(interval); // Clean up on component unmount
   }, []);
+  useEffect(() => {
+    console.log(`Color changed to: ${color}`);
+    // You could also perform other side effects here, like fetching data based on the color, etc.
+  }, [color]); // This effect depends on `color` and runs every time `color` changes.
+
 
   useEffect(() => {
     // Scroll to the bottom every time messages update
@@ -61,11 +76,11 @@ function MainPage({ setIsLoggedIn }) {
   }, [messages]);
 
   return (
-    <div className="M">
-      <NavBar onProfileClick={toggleProfilePopup} />
+    <div className="M"  >
+      <NavBar onProfileClick={toggleProfilePopup} color={color} setColor={setColor} />
       {isProfilePopupVisible && <ProfilePopup onClose={toggleProfilePopup} />}
 
-      <div id="messageContainer">
+      <div style={{ backgroundColor: color }} id="messageContainer">
         {" "}
         {/* You might need to style this for proper scrolling */}
         {messages.map((message, index) => (
@@ -89,6 +104,7 @@ function MainPage({ setIsLoggedIn }) {
       </div>
 
       <ChatInputWithMenu />
+      <DarkMode />
     </div>
   );
 }

@@ -16,11 +16,11 @@ import { NavbarContainer,
 
 import ProfileImg from './iconProfile.png'
 import logo from './fence.png';
+import { IoMdColorPalette } from "react-icons/io";
 
 
 
-
-function Navbar({ onProfileClick }) {
+function Navbar({ onProfileClick , setColor, color}) {
     //boolean for when the button is clicked
     //if true, button will activate and will show links
     const [extendedNavbar, setExtendNavbar] = useState(false);
@@ -32,33 +32,50 @@ function Navbar({ onProfileClick }) {
     <NavbarContainer extendNavbar = {extendedNavbar}>
         <NavbarInnerContainer>
             <LeftContainer>
-                <NavbarLinkContainer>
-                    <NavbarLink to="/">Home</NavbarLink>
-                    {/* <NavbarLink to="/search">Search</NavbarLink> */}
-                    {/* <NavbarLink to="/profile">Profile</NavbarLink>*/}
-                    <OpenLinksButton 
-                        onClick={() =>  {
-                            setExtendNavbar((curr) => !curr);
-                        }}
-                    >
-                    {extendedNavbar ? <> &#10005;</> : <>&#8801;</>}
-                    </OpenLinksButton>
-                </NavbarLinkContainer>
+            <IoMdColorPalette style={{ color: 'white' , marginRight: '-2em',  marginLeft: '1em'}} size={42}id="logocolor"/>
+               
+
+                <div className="container"> 
+    <div className="card">
+      <div className="header">
+        Colour: <span>{color || "White" }</span>
+      </div>
+      <input 
+        type="text" 
+        className="input"
+        value={color} 
+        onChange={(e) => setColor(e.target.value)}
+        placeholder="Enter a colour"
+      />
+    </div>
+  </div>
             </LeftContainer>
             <MiddleContainer>
                 <Logo src={logo}></Logo>
             </MiddleContainer>
             <RightContainer> 
             <Profile src={ProfileImg} onClick={onProfileClick}></Profile>
+
+         
             </RightContainer>
         </NavbarInnerContainer>
         {extendedNavbar && (
         <NavbarExtendedContainer>
             <NavbarLinkExtended to="/">Home</NavbarLinkExtended>
             <NavbarLinkExtended to="/search">Search</NavbarLinkExtended>
+
+          
         </NavbarExtendedContainer>
         )}
     </NavbarContainer>
+
+        {/* Color changer input */}
+    
+     
+
+
+    
+  
     </div>
     );
 }

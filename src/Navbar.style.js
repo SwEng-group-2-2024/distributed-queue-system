@@ -5,20 +5,19 @@ import logo from './fence.png';
 export const NavbarContainer = styled.nav`
     width: 100%; 
     height: ${(props) => (props.extendedNavbar ? "100vh" : "80px")};
-    background-color: #043b5c;
-    display: flex; 
-
+    background-color: var(--navbar-background-color); /* Use variable */
+    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 `;
 
 export const LeftContainer = styled.div`
-    flex: 50%; //alow for search bar
+    flex: 48%;
     display: flex;
-    align-items: center; 
-    padding-left: 5%; 
-    `
+    align-items: center;
+    justify-content: flex-start; /* Align items to the left */
+`;
 
 export const MiddleContainer = styled.div`
     flex: 20%; 
@@ -37,6 +36,7 @@ export const NavbarInnerContainer = styled.div`
     width: 100%;
     height: 80px; 
     display: flex;
+   
 `;
 
 export const NavbarLinkContainer = styled.div`
@@ -44,26 +44,18 @@ export const NavbarLinkContainer = styled.div`
 `;
 
 export const NavbarLink = styled(Link)`
-    color: white; 
-    font-size: x-large; 
-    font-family: Arial, Helvetica, sans-serif; 
-    text-decoration: none; 
-    margin: 10px;
-
- /* when width of screen is less than 700px, get rid of the links */
- @media (max-width: 700px) {
-
-display: none;
-}
-
+    color: var(--link-color); /* Use variable */
+    font-size: x-large;
+    /* Rest of the styles */
 `;
 
-export const Profile=styled.img`
-    margin: 10px; 
-    max-width: 180px; 
-    height: auto; 
+export const Profile = styled.img`
+  margin: 10px; 
+  max-width: 180px; 
+  width: 2.5em;
+  height: 3em;
+  filter: brightness(200%); // Adjust the brightness to make the image lighter
 `;
-
 
 export const Logo=styled.img`
     margin: 10px; 
