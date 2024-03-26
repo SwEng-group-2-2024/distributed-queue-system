@@ -21,16 +21,36 @@ import DarkMode from './DarkMode';
 import Dropdown from './SettingPage'
 import SettingPage from "./SettingPage";
 import { IoMdColorPalette } from "react-icons/io";
+import addNotification from 'react-push-notification';
+import SettingsPopup from './SettingsPopup'; 
 
 function MainPage({ setIsLoggedIn }) {
   const [isProfilePopupVisible, setProfilePopupVisible] = useState(false);
   const [messages, setMessages] = useState([]);
   const messagesEndRef = useRef(null);
-  const [color, setColor] = useState("white"); 
+  const [color, setColor] = useState(""); 
   const mainPageStyle = {
     backgroundColor: color // Adding !important here
   };
 
+
+  const [isSettingsPopupVisible, setIsSettingsPopupVisible] = useState(false);
+  
+  const toggleSettingsPopup = () => setIsSettingsPopupVisible(!isSettingsPopupVisible);
+
+
+
+  const buttonClick = () => {
+    addNotification({
+        title: 'Warning',
+        subtitle: 'This is a subtitle',
+        message: 'This is a very long message',
+        theme: 'darkblue',
+        native: true 
+    });
+};
+
+const ProfileImg = 'https://probasket.pl/wp-content/uploads/2021/12/steph-curry-interview-2.jpg';
 
   const toggleProfilePopup = () =>
     setProfilePopupVisible(!isProfilePopupVisible);
@@ -52,7 +72,7 @@ function MainPage({ setIsLoggedIn }) {
         throw new Error("Network response was not ok");
       }
       const data = await response.json();
-      setMessages((prevMessages) => [...prevMessages, data]); // Make sure this logic aligns with your data structure
+      setMessages((prevMessages) => [...prevMessages, data]); 
     } catch (error) {
       console.error("There was a problem with your fetch operation:", error);
     }
@@ -60,25 +80,26 @@ function MainPage({ setIsLoggedIn }) {
   
 
   useEffect(() => {
-    const interval = setInterval(fetchMessages, 5000); // Fetch messages every interval
+    const interval = setInterval(fetchMessages, 5000); 
 
-    return () => clearInterval(interval); // Clean up on component unmount
+    return () => clearInterval(interval); 
   }, []);
   useEffect(() => {
     console.log(`Color changed to: ${color}`);
-    // You could also perform other side effects here, like fetching data based on the color, etc.
-  }, [color]); // This effect depends on `color` and runs every time `color` changes.
+   
+  }, [color]); 
 
 
   useEffect(() => {
-    // Scroll to the bottom every time messages update
+    
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
   return (
     <div className="M"  >
-      <NavBar onProfileClick={toggleProfilePopup} color={color} setColor={setColor} />
-      {isProfilePopupVisible && <ProfilePopup onClose={toggleProfilePopup} />}
+   <NavBar onProfileClick={toggleProfilePopup} onSettingsClick={toggleSettingsPopup} />
+            {isProfilePopupVisible && <ProfilePopup onClose={toggleProfilePopup} />}
+            {isSettingsPopupVisible &&   <SettingsPopup color={color} setColor={setColor} onClose={toggleSettingsPopup} />}
 
       <div style={{ backgroundColor: color }} id="messageContainer">
         {" "}
@@ -95,13 +116,11 @@ function MainPage({ setIsLoggedIn }) {
         <div ref={messagesEndRef} />{" "}
         {/* Invisible element to enable auto-scrolling */}
       </div>
-      <div id="bar">
-        {" "}
-        <GoPersonFill className="pro" /> <div id="nameLable">Steph</div>
-        <button className="logoutButton" onClick={handleLogout}>
-          log out
-        </button>
-      </div>
+      <div className="user-bar">
+  <img src={ProfileImg} alt="User Profile" className="profile-pic" />
+  <div className="user-name">Steph</div>
+  <button className="logout-button" onClick={handleLogout}>Log out</button>
+</div>
 
       <ChatInputWithMenu />
       <DarkMode />

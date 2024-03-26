@@ -43,6 +43,8 @@
   --text-color: #000; /* Dark text */
   --navbar-background-color: #043b5c;
   --link-color: #000;
+  --send: #043b5c;
+  --hover: #96c3df;
   /* Add other variables as needed */
 }
 
@@ -52,6 +54,8 @@
   --text-color: #FAFAFA; /* Light text */
   --navbar-background-color: #333; /* Example dark navbar background */
   --link-color: #ddd;
+  --send: gray;
+  --hover: lightgray;
   /* Add other variables as needed */
 }
 

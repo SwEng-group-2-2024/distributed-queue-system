@@ -13,25 +13,32 @@ export const NavbarContainer = styled.nav`
 `;
 
 export const LeftContainer = styled.div`
-    flex: 48%;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start; /* Align items to the left */
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 20px; /* Add padding to avoid elements being too close to the edge */
 `;
 
+
 export const MiddleContainer = styled.div`
-    flex: 20%; 
-    display: flex;
-    align-items: center; 
-    
-`
+  flex: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .company-name {
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: #FFFFFF;
+  }
+`;
 
 export const RightContainer = styled.div`
-    flex: 30%; //profile logo
-    display: flex; 
-    justify-content: flex-end;
-    padding-right: 50px;
-`
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 20px; /* Add padding to avoid elements being too close to the edge */
+`;
 export const NavbarInnerContainer = styled.div`
     width: 100%;
     height: 80px; 
@@ -50,10 +57,10 @@ export const NavbarLink = styled(Link)`
 `;
 
 export const Profile = styled.img`
-  margin: 10px; 
+  margin-top: 17px; 
   max-width: 180px; 
-  width: 2.5em;
-  height: 3em;
+  width: 2.1em;
+  height: 2.7em;
   filter: brightness(200%); // Adjust the brightness to make the image lighter
 `;
 
@@ -64,19 +71,11 @@ export const Logo=styled.img`
 
 //This allows the screen to adapt depending on screen size
 export const OpenLinksButton = styled.button`
-    width: 70px; 
-    height: 50 px; 
-    background: none; 
-    border: none; 
-    color: white; 
-    font-size: 45px; 
-    cursor: pointer;
-
-    /* when width of screen exceeds 700px, hide this button */
-    @media (min-width: 700px) {
-
-        display: none;
-    }
+  display: none; /* Initially hidden */
+  /* Styles for the button */
+  @media (max-width: 768px) {
+    display: block; /* Show only on smaller screens */
+  }
 `;
 
 export const NavbarExtendedContainer = styled.div`
@@ -98,3 +97,4 @@ export const NavbarLinkExtended= styled(Link)`
     text-decoration: none; 
     margin: 10px;
 `;
+
