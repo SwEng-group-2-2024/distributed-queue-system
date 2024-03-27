@@ -144,3 +144,17 @@
  text-align: center;
 
   }
+
+  .send-button {
+    padding: 8px 16px;
+    background-color:  var(--send); /* Example: Bootstrap primary blue */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .send-button:hover {
+    background-color: var(--hover); /* Darker shade on hover */
+  }
+  

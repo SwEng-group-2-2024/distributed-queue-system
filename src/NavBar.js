@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { NavbarContainer,
          LeftContainer, 
          MiddleContainer,
@@ -17,14 +17,33 @@ import { NavbarContainer,
 import ProfileImg from './iconProfile.png'
 import logo from './fence.png';
 import { IoMdColorPalette } from "react-icons/io";
+import { IoSettingsOutline } from "react-icons/io5"; 
 
 
 
-function Navbar({ onProfileClick , setColor, color}) {
-    //boolean for when the button is clicked
-    //if true, button will activate and will show links
+function Navbar({ onProfileClick , setColor, color,  onSettingsClick}) {
+  
     const [extendedNavbar, setExtendNavbar] = useState(false);
     const[profile, setProfile ] = useState(true);
+
+    const [displayedText, setDisplayedText] = useState('');
+    const textToType = "FENCE"; 
+    const typingSpeed = 170;
+  
+    useEffect(() => {
+      let index = 0;
+      const intervalId = setInterval(() => {
+        if (index < textToType.length) {
+          setDisplayedText((prev) => prev + textToType.charAt(index));
+          index += 1;
+        } else {
+          clearInterval(intervalId);
+        }
+      }, typingSpeed);
+  
+      return () => clearInterval(intervalId); // Cleanup interval on component unmount
+    }, [textToType, typingSpeed]);
+  
  return (
     <div>
 
@@ -32,32 +51,20 @@ function Navbar({ onProfileClick , setColor, color}) {
     <NavbarContainer extendNavbar = {extendedNavbar}>
         <NavbarInnerContainer>
             <LeftContainer>
-            <IoMdColorPalette style={{ color: 'white' , marginRight: '-2em',  marginLeft: '1em'}} size={42}id="logocolor"/>
+           
                
 
-                <div className="container"> 
-    <div className="card">
-      <div className="header">
-        Colour: <span>{color || "White" }</span>
-      </div>
-      <input 
-        type="text" 
-        className="input"
-        value={color} 
-        onChange={(e) => setColor(e.target.value)}
-        placeholder="Enter a colour"
-      />
-    </div>
-  </div>
+      
+  <IoSettingsOutline size={35} color="white" style={{ cursor: 'pointer', marginTop: '1px' }} onClick={onSettingsClick} />
             </LeftContainer>
             <MiddleContainer>
-                <Logo src={logo}></Logo>
-            </MiddleContainer>
-            <RightContainer> 
-            <Profile src={ProfileImg} onClick={onProfileClick}></Profile>
-
-         
-            </RightContainer>
+        
+        <div className="company-name">{displayedText}</div>
+      </MiddleContainer>
+            <RightContainer>
+                        <Profile src={ProfileImg} onClick={onProfileClick} />
+                       
+                    </RightContainer>
         </NavbarInnerContainer>
         {extendedNavbar && (
         <NavbarExtendedContainer>
