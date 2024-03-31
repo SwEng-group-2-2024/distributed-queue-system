@@ -30,8 +30,6 @@ jobs:
           # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
           app_location: "/" # App source code path
           api_location: "" # Api source code path - optional
-          app_build_command: "npm install react-push-notification react --legacy-peer-deps --force"
-          api_build_command: "npm install react-push-notification react --legacy-peer-deps --force"
           output_location: "build" # Built app content directory - optional
           ###### End of Repository/Build Configurations ######
 
