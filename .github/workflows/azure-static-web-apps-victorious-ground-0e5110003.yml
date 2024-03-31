@@ -15,6 +15,9 @@ jobs:
     runs-on: ubuntu-latest
     name: Build and Deploy Job
     steps:
+      - name: Preliminary Module Install
+        run: |
+          npm install react-push-notification react --legacy-peer-deps --force
       - uses: actions/checkout@v3
         with:
           submodules: true
