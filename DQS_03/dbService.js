@@ -1,3 +1,5 @@
+const figlet = require("figlet");
+
 const { getPool } = require("./database");
 const retryWithExponentialBackoff = require("./retryWithExponentialBackoff");
 
@@ -39,7 +41,7 @@ exports.enqueueMessage = async (inputMessage) => {
 
     // Log the message
     await exports.logMessage(uniqueMessageID, sender);
-
+    printStringToAsciiArt(sender + " -> Queue 3");
     return { message: createdMessage };
   } catch (error) {
     console.log("Error enqueueing message:", error);
@@ -100,4 +102,15 @@ function generateUniqueMessageID(message, timestamp, sender) {
   const hash = crypto.createHash("sha256");
   hash.update(message + timestamp + sender);
   return hash.digest("hex");
+}
+
+function printStringToAsciiArt(str) {
+  figlet(str, function (err, data) {
+    if (err) {
+      console.log("Something went wrong...");
+      console.dir(err);
+      return;
+    }
+    console.log(data);
+  });
 }
