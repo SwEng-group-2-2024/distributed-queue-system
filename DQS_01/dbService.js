@@ -2,7 +2,7 @@ const { getPool } = require("./database");
 const retryWithExponentialBackoff = require("./retryWithExponentialBackoff");
 
 exports.enqueueMessage = async (inputMessage) => {
-  const { message, timestamp, sender } = inputMessage;
+  const { message, timestamp, sender, profilepic, sentfrom } = inputMessage;
   let parsedTimestamp;
 
   // Check if the provided timestamp is valid
@@ -21,8 +21,8 @@ exports.enqueueMessage = async (inputMessage) => {
   );
 
   const query = `
-    INSERT INTO Tasks (message, sender, uniqueMessageID, timestamp)
-    VALUES ('${message}', '${sender}', '${uniqueMessageID}', '${parsedTimestamp}');
+    INSERT INTO Tasks (message, sender, uniqueMessageID, timestamp, ProfilePic, sentFrom )
+    VALUES ('${message}', '${sender}', '${uniqueMessageID}', '${parsedTimestamp}', '${profilepic}', '${sentfrom}');
   `;
 
   try {
@@ -33,6 +33,8 @@ exports.enqueueMessage = async (inputMessage) => {
       timestamp: parsedTimestamp,
       sender,
       uniqueMessageID,
+      profilepic,
+      sentfrom,
     };
 
     // Log the message
@@ -75,8 +77,7 @@ exports.dequeueMessage = async () => {
 };
 
 exports.logMessage = async (uniqueMessageID, sender) => {
-
-    const query = `INSERT INTO MessageLog1 (uniqueMessageID, Sender) VALUES ('${uniqueMessageID}', '${sender}')`;
+  const query = `INSERT INTO MessageLog1 (uniqueMessageID, Sender) VALUES ('${uniqueMessageID}', '${sender}')`;
 
   try {
     const pool = await getPool();
@@ -86,12 +87,11 @@ exports.logMessage = async (uniqueMessageID, sender) => {
       uniqueMessageID,
     };
 
-
     return { message: createdMessage };
   } catch (error) {
     console.log("Error logging message:", error);
     throw new Error("Error logging message.");
-  } 
+  }
 };
 
 // Helper function to generate a unique Message ID using SHA-256 hashing
