@@ -7,6 +7,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "cors": "^2.8.5",
+    "figlet": "^1.7.0",
     "jest": "^27.5.1",
     "mssql": "^10.0.2",
     "react": "^18.2.0",
