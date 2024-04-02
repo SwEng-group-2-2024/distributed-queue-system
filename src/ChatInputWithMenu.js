@@ -33,7 +33,10 @@ function ChatInputWithMenu() {
     }
 
     try {
-      const response = await fetch("http://57.151.53.113/api/message/enqueue", {
+      // const response = await fetch("http://57.151.53.113/api/message/enqueue", {
+        const response = await fetch("http://172.190.85.221/api/message/api/message/enqueue", {
+
+      
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

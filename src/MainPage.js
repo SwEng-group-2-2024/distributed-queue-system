@@ -91,7 +91,9 @@ function MainPage({ setIsLoggedIn }) {
   async function fetchMessages() {
     try {
       const response = await fetch(
-        "http://57.151.53.113/api/message/dequeue",
+        // "http://57.151.53.113/api/message/dequeue",
+        "http://172.190.85.221/api/message/dequeue",
+
         {
           method: "GET",
           headers: {
