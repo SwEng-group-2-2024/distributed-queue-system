@@ -59,7 +59,7 @@ function Navbar({ onProfileClick , setColor, color,  onSettingsClick}) {
             </LeftContainer>
             <MiddleContainer>
         
-        <div className="company-name">{displayedText}</div>
+        <div className="company-name">FENCE</div>
       </MiddleContainer>
             <RightContainer>
                         <Profile src={ProfileImg} onClick={onProfileClick} />

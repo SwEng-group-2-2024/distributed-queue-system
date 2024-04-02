@@ -1,6 +1,7 @@
 
 /* Light theme variables */
 :root {
+  --chat-input-bar-height: 60px;
   --chat-background-color: #282c34; 
   --chat-input-background-color: #f0f0f0; 
   --dropdown-background-color: white;
