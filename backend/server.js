@@ -18,7 +18,7 @@ const blobServiceClient = BlobServiceClient.fromConnectionString(AZURE_STORAGE_C
 
 const containerName = 'profilepicstorage';
 
-const sasToken = "sv=2022-11-02&ss=bfqt&srt=sco&sp=rwdlacupiytfx&se=2024-04-02T06:21:44Z&st=2024-04-01T22:21:44Z&spr=https,http&sig=89ZAQ5iaSa9K1kRiGQzxSICIKQVW0rTzqsLBfJN7VcE%3D";
+const sasToken = "sv=2022-11-02&ss=bfqt&srt=sco&sp=rwdlacupiytfx&se=2025-01-01T03:30:31Z&st=2024-04-02T18:30:31Z&spr=https,http&sig=R1Cth8yUkLQstqcF7WPpgkpZCh2uTOQ%2BFnXyiFQNd5I%3D";
 
 
 async function createContainer() {
