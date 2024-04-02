@@ -12,6 +12,10 @@ app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use("/api", taskRoutes);
 
+
+
+
+
 // Connect to the database and set up tables when the server starts
 connectToDatabase()
   .then(() => {

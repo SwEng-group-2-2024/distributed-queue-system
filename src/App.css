@@ -39,6 +39,7 @@
 
 /* Light theme variables */
 :root {
+  --chat-input-bar-height: 60px;
   --background-color: #fff; /* Light background */
   --text-color: #000; /* Dark text */
   --navbar-background-color: #043b5c;
