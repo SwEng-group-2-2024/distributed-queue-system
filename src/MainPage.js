@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./MainPage.css";
 import NavBar from "./NavBar";
-import ProfilePopp from "./Popup"; 
+import ProfilePopup from "./PopUp"; 
 import {
   NavbarContainer,
   LeftContainer,
