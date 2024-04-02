@@ -4,7 +4,7 @@ import "./PopUp.css"
 import React, { useState, useEffect } from 'react';
 
 import axios from 'axios';
-import "./PopUp.css"; // Ensure your CSS styles are correctly linked
+
 
 function ProfilePopup({ onClose }) {
   const [error, setError] = useState('');

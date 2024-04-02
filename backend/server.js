@@ -20,8 +20,6 @@ const containerName = 'profilepicstorage';
 
 const sasToken = "sv=2022-11-02&ss=bfqt&srt=sco&sp=rwdlacupiytfx&se=2024-04-02T06:21:44Z&st=2024-04-01T22:21:44Z&spr=https,http&sig=89ZAQ5iaSa9K1kRiGQzxSICIKQVW0rTzqsLBfJN7VcE%3D";
 
-// Ensure containerName matches the container in your Azure Blob Storage
-
 
 async function createContainer() {
   const blobServiceClient = BlobServiceClient.fromConnectionString(AZURE_STORAGE_CONNECTION_STRING);
@@ -83,10 +81,6 @@ async function uploadProfilePictureService(file, email) {
   return profilePictureUrlWithSAS;
 }
 
-// Adjusted usage within the POST route for uploading profile pictures
-// Adjust the POST route for uploading profile pictures to use email
-// Ensure multer is parsing 'multipart/form-data' requests
-// and 'upload' is your multer instance with memoryStorage().
 
 app.post('/api/user/profile-picture', upload.single('profilePicture'), async (req, res) => {
   const { email } = req.body;
