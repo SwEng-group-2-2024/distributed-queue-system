@@ -1,19 +1,16 @@
-const figlet = require("figlet");
+const ST_to_ASCII = require("./ST_to_ASCII");
+const { logMessage, delogMessage } = require("./logger");
 
 const { getPool } = require("./database");
 const retryWithExponentialBackoff = require("./retryWithExponentialBackoff");
+const generateUniqueMessageID = require("./generateUniqueMessageID");
 
 exports.enqueueMessage = async (inputMessage) => {
   const { message, timestamp, sender, profilepic, sentfrom } = inputMessage;
   let parsedTimestamp;
-
-  // Check if the provided timestamp is valid
-  try {
-    parsedTimestamp = new Date(timestamp).toISOString();
-  } catch (error) {
-    console.error("Invalid timestamp format. Using current timestamp instead.");
-    parsedTimestamp = new Date().toISOString();
-  }
+  // override the provided timestamp with the server timestamp
+  parsedTimestamp = new Date().toISOString();
+  console.log("Over rode provided time stamp");
 
   // Generate a unique Message ID using a hash function
   const uniqueMessageID = generateUniqueMessageID(
@@ -23,7 +20,7 @@ exports.enqueueMessage = async (inputMessage) => {
   );
 
   const query = `
-    INSERT INTO Tasks (message, sender, uniqueMessageID, timestamp, ProfilePic, sentFrom )
+    INSERT INTO Messages (message, sender, uniqueMessageID, timestamp, ProfilePic, sentFrom )
     VALUES ('${message}', '${sender}', '${uniqueMessageID}', '${parsedTimestamp}', '${profilepic}', '${sentfrom}');
   `;
 
@@ -32,7 +29,7 @@ exports.enqueueMessage = async (inputMessage) => {
     await retryWithExponentialBackoff(() => pool.request().query(query));
     const createdMessage = {
       message,
-      timestamp: parsedTimestamp,
+      parsedTimestamp,
       sender,
       uniqueMessageID,
       profilepic,
@@ -40,8 +37,9 @@ exports.enqueueMessage = async (inputMessage) => {
     };
 
     // Log the message
-    await exports.logMessage(uniqueMessageID, sender); // Wrap with exponential Retry
-    printStringToAsciiArt(sender + " -> in Queue");
+    await retryWithExponentialBackoff(uniqueMessageID, parsedTimestamp); // Wrap with exponential Retry
+
+    ST_to_ASCII(sender + " -> Queue"); // For debugging order and terminal visuals
     return { message: createdMessage };
   } catch (error) {
     console.log("Error enqueueing message:", error);
@@ -52,7 +50,7 @@ exports.enqueueMessage = async (inputMessage) => {
 exports.dequeueMessage = async () => {
   const pool = await getPool();
   try {
-    const query = `SELECT TOP 1 * FROM tasks ORDER BY Timestamp ASC`;
+    const query = `SELECT TOP 1 * FROM Messages ORDER BY Timestamp ASC`;
 
     const result = await retryWithExponentialBackoff(() =>
       pool.request().query(query)
@@ -63,12 +61,16 @@ exports.dequeueMessage = async () => {
 
     uniqueMessageID = parsedResult[0]["uniqueMessageID"];
 
+    await retryWithExponentialBackoff(uniqueMessageID);
+
     if (result.recordset.length > 0) {
       const nextMessage = result.recordset[0];
-      const query = `DELETE FROM tasks WHERE uniqueMessageID = '${nextMessage.uniqueMessageID}'`;
+      const query = `DELETE FROM Messages WHERE uniqueMessageID = '${nextMessage.uniqueMessageID}'`;
       await retryWithExponentialBackoff(() => pool.request().query(query));
+      // printStringToAsciiArt("dequeued");
       return nextMessage;
     } else {
+      // printStringToAsciiArt("no message");
       throw new Error("No messages available");
     }
   } catch (error) {
@@ -77,40 +79,3 @@ exports.dequeueMessage = async () => {
     await retryWithExponentialBackoff(dequeueMessage);
   }
 };
-
-exports.logMessage = async (uniqueMessageID, sender) => {
-  const query = `INSERT INTO MessageLog (uniqueMessageID, Sender) VALUES ('${uniqueMessageID}', '${sender}')`;
-
-  try {
-    const pool = await getPool();
-    await retryWithExponentialBackoff(() => pool.request().query(query));
-    const createdMessage = {
-      sender,
-      uniqueMessageID,
-    };
-
-    return { message: createdMessage };
-  } catch (error) {
-    console.log("Error logging message:", error);
-    throw new Error("Error logging message.");
-  }
-};
-
-// Helper function to generate a unique Message ID using SHA-256 hashing
-function generateUniqueMessageID(message, timestamp, sender) {
-  const crypto = require("crypto");
-  const hash = crypto.createHash("sha256");
-  hash.update(message + timestamp + sender);
-  return hash.digest("hex");
-}
-
-function printStringToAsciiArt(str) {
-  figlet(str, function (err, data) {
-    if (err) {
-      console.log("Something went wrong...");
-      console.dir(err);
-      return;
-    }
-    console.log(data);
-  });
-}

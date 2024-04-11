@@ -1,6 +1,6 @@
 const figlet = require("figlet");
 
-function printStringToAsciiArt(str) {
+function ST_to_ASCII(str) {
   figlet(str, function (err, data) {
     if (err) {
       console.log("Something went wrong...");
@@ -11,7 +11,4 @@ function printStringToAsciiArt(str) {
   });
 }
 
-// Example usage:
-printStringToAsciiArt("ENIOLA message");
-printStringToAsciiArt("Diarmuid message");
-printStringToAsciiArt("ernie message");
+module.exports = ST_to_ASCII;
