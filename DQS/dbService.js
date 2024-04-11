@@ -37,7 +37,8 @@ exports.enqueueMessage = async (inputMessage) => {
     };
 
     // Log the message
-    await retryWithExponentialBackoff(uniqueMessageID, parsedTimestamp); // Wrap with exponential Retry
+
+    logMessage(uniqueMessageID, parsedTimestamp);
 
     ST_to_ASCII(sender + " -> Queue"); // For debugging order and terminal visuals
     return { message: createdMessage };
@@ -61,7 +62,7 @@ exports.dequeueMessage = async () => {
 
     uniqueMessageID = parsedResult[0]["uniqueMessageID"];
 
-    await retryWithExponentialBackoff(uniqueMessageID);
+    delogMessage(uniqueMessageID);
 
     if (result.recordset.length > 0) {
       const nextMessage = result.recordset[0];

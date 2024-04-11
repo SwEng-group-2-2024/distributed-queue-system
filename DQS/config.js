@@ -13,19 +13,3 @@ const config = {
 };
 
 module.exports = config;
-
-// const config = {
-//   user: "dbadmin",
-//   password: "0000Aaaa.",
-//   server: "wizserver.database.windows.net",
-//   database: "softflame",
-//   authentication: {
-//     type: "default",
-//   },
-//   options: {
-//     enableArithAbort: true,
-//     encrypt: true,
-//   },
-// };
-
-// module.exports = config;
