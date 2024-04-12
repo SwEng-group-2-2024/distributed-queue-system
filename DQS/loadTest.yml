@@ -1,10 +1,8 @@
 config:
   # target: "http://57.151.53.113"
-  # target: "http://57.151.53.113"
   target: "http://localhost:3001"
   phases:
     - duration: 5
-      arrivalRate: 2
       arrivalRate: 2
 scenarios:
   - flow:
@@ -13,7 +11,4 @@ scenarios:
           json:
             message: "load testing API with load balancer"
             sender: "VScode"
-            profilepic: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Outdoors-man-portrait_%28cropped%29.jpg/1280px-Outdoors-man-portrait_%28cropped%29.jpg"
-            message: "load test to DB"
-            sender: "Eniola"
             profilepic: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Outdoors-man-portrait_%28cropped%29.jpg/1280px-Outdoors-man-portrait_%28cropped%29.jpg"
