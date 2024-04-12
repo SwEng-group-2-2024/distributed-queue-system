@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import './SignUp.css';
 import { useDispatch } from 'react-redux';
 import { signUpSuccess } from './store';
-import { Link } from 'react-router-dom'; // Import Link
+import { Link } from 'react-router-dom';
+
 function SignUp({ setIsLoggedIn }) {
   const dispatch = useDispatch();
   const [fullName, setFullName] = useState('');
@@ -10,87 +11,70 @@ function SignUp({ setIsLoggedIn }) {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [password, setPassword] = useState('');
 
+  const [error, setError] = useState('');
 
-  const [fullNameError, setFullNameError] = useState('');
-  const [emailError, setEmailError] = useState('');
-  const [phoneNumberError, setPhoneNumberError] = useState('');
-  const [passwordError, setPasswordError] = useState('');
-
-  const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(email).toLowerCase());
-
-
-  const validatePassword = (password) => /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(String(password));
+  const validateEmail = email => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.toLowerCase());
+  const validatePassword = password => /(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(password);
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setFullNameError('');
+      e.preventDefault();
+      let isValid = true;
 
-    setEmailError('');
-    setPhoneNumberError('');
+      if (!validateEmail(email)) {
+          setError('Invalid email format');
+          isValid = false;
+      } else if (!validatePassword(password)) {
+          setError('Password must contain at least 8 characters, including one letter and one number');
+          isValid = false;
+      } 
 
-    setPasswordError('');
-    let isValid = true;
-    if (!validateEmail(email)) {
-      setEmailError('Invalid email format');
-      isValid = false;
-    }
-    if (!validatePassword(password)) {
-      setPasswordError('Password must be at least 8 characters, include one letter and one number');
+      if (isValid) {
+          try {
+              const response = await fetch('http://localhost:4000/api/register', {
+                  method: 'POST',
+                  headers: {'Content-Type': 'application/json'},
+                  body: JSON.stringify({ fullName, email, phoneNumber, password }),
+              });
 
-      isValid = false;
-    }
-    if (!isValid) return;
-    try {
-      const response = await fetch('http://localhost:4000/api/register', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-
-        body: JSON.stringify({fullName, email, phoneNumber, password}),
-      });
-      if (response.ok) {
-        dispatch(signUpSuccess());
-        setFullName('');
-
-        setEmail('');
-        setPhoneNumber('');
-        setPassword('');
-        setIsLoggedIn(true);
-      } else {
-        console.error('Registration failed:', response.statusText);
+              if (response.ok) {
+                  const data = await response.json();
+                  console.log(JSON.stringify(data, null, 2));
+                  localStorage.setItem('UserEmail', email);
+                  localStorage.setItem('UserName', fullName);
+                  localStorage.setItem('UserPhoneNumber', phoneNumber);
+                  dispatch(signUpSuccess());
+                  setFullName('');
+                  setEmail('');
+                  setPhoneNumber('');
+                  setPassword('');
+                  setIsLoggedIn(true);
+              } else {
+                  setError('Registration failed: ' + response.statusText);
+              }
+          } catch (error) {
+              console.error('Error submitting form:', error);
+              setError('Failed to submit form. Please try again.');
+          }
       }
-    } catch (error) {
-      console.error('Error submitting form:', error);
-    }
   };
 
   return (
-    <div className="Outer">
-      <div className="logo"></div>
-      <div className="Main">
-        <h1>Sign Up</h1>
-        <form className="inputBox" onSubmit={handleSubmit}>
-
-          <input placeholder="Full Name" className="input" value={fullName} onChange={(e) => setFullName(e.target.value)} />
-          {fullNameError && <div className="error">{fullNameError}</div>}
-
-
-          <input placeholder="Email" className="input" value={email} onChange={(e) => setEmail(e.target.value)} />
-          {emailError && <div className="error">{emailError}</div>}
-
-          <input placeholder="Phone Number" className="input" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
-          {phoneNumberError && <div className="error">{phoneNumberError}</div>}
-
-          <input placeholder="Password" className="input" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-          {passwordError && <div className="error">{passwordError}</div>}
-
-
-          <button type="submit" className="submitBtn">Sign Up</button>
-        </form>
-        <p className="navigationLink">
-          Already have an account? <Link to="/">Log In</Link>
-        </p>
+      <div className="signUpPage">
+          <div className="signUpContainer">
+              <h1>FENCE</h1>
+              <form className="signUpForm" onSubmit={handleSubmit}>
+                  <input placeholder="Full Name" className="inputField" value={fullName} onChange={(e) => setFullName(e.target.value)} />
+                  <input placeholder="Email" className="inputField" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                  <input placeholder="Phone Number" className="inputField" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
+                  <input placeholder="Password" className="inputField" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                  {error && <div className="error">{error}</div>}
+                  <button type="submit" className="submitBtn">Sign Up</button>
+              </form>
+              <p className="navigationLink">
+                  Already have an account? <Link to="/">Log In</Link>
+              </p>
+          </div>
       </div>
-    </div>
   );
 }
 

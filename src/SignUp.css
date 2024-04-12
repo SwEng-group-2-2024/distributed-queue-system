@@ -1,66 +1,83 @@
-/* Base styles */
-body, html {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-  }
-  
-  .Outer {
-    width: 100%;
-    min-height: 100vh;
-    background-color: #042B5C;
-    display: flex;
-    flex-direction: column; 
-    align-items: center;
-    justify-content: center;
-    padding: 20px; 
-  }
-  
-  
-  .Main {
+:root {
+    --background-color: #282c34;
+    --input-background-color: #3c4049;
+    --button-background-color: #4CAF50; 
+    --button-hover-color: #45a049;
+    --text-color: #FFFFFF;
+    --error-color: #FF5722;
+    --link-color: #80CBC4;
+    --link-hover-color: #4DB6AC;
+}
+
+
+.signUpPage {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+ 
+  background-color: #282c34;
+  color: var(--text-color);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    color: #D9E1FE;
-    padding: 20px; 
-    box-sizing: border-box; 
-    max-width: 500px; 
-    width: 100%; 
-  }
-  
-  .input, .submitBtn {
-    width: 100%; 
-    margin: 10px 0; 
-    padding: 10px; 
-    box-sizing: border-box;
-  }
-  
-  .inputBox {
-    width: 100%; 
-  }
-  
-  .logo {
+    height: 100vh;
+    width: 100%;
+}
+
+.signUpContainer {
     background-color: white;
-    max-width: 200px;
-    height: auto;
-    margin-bottom: 20px; 
-  }
-  
-  /* Responsive adjustments */
-  @media (min-width: 768px) {
-    .Outer {
-      flex-direction: row; 
-      justify-content: space-around; 
-    }
-    .Main {
-      margin: 0; 
-    }
-  }
-  
-  @media (max-width: 767px) {
-    .input, .submitBtn {
-      width: calc(100% - 20px); 
-    }
-  }
-  
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    width: 100%;
+}
+
+.signUpForm {
+    display: flex;
+    flex-direction: column;
+}
+
+.inputField {
+    padding: 12px;
+    margin-bottom: 20px;
+    background-color: #f0f0f0;
+    border: 1px solid var(--input-border-color);
+    border-radius: 4px;
+    color: var(--text-color);
+}
+
+.submitBtn {
+    padding: 12px;
+    background-color: var(--button-background-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.submitBtn:hover {
+    background-color: var(--button-hover-color);
+}
+
+.error {
+    color: var(--error-color);
+    margin-bottom: 20px;
+}
+
+.navigationLink {
+    margin-top: 20px;
+    text-align: center;
+    color: #282c34;
+}
+
+.navigationLink a {
+    color: #282c34;
+    text-decoration: underline;
+}
+
+.navigationLink a:hover {
+    color: #747474;
+    text-decoration: underline;
+}
