@@ -1,0 +1,19 @@
+version: "3.9"
+services:
+  back-end:
+    container_name: backend
+    build: backend
+    volumes:
+      - sweng:/code/backend
+    ports:
+      - "4000:4000"
+  front-end:
+    container_name: frontend
+    build: frontend
+    volumes: 
+      - sweng:/code/
+    ports:
+      - "3000:3000"
+      
+volumes:
+  sweng:

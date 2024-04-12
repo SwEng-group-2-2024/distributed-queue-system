@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import moment from 'moment';
 
 // ProfileBox Component remains the same
@@ -38,6 +38,37 @@ function MessageComponent({ message, imageUrl, time, isCurrentUser }) {
   // Determine the style based on isCurrentUser
   const messageStyle = isCurrentUser ? currentUserStyle : otherUserStyle;
 
+  // State for displaying message actions menu
+  const [showActions, setShowActions] = useState(false);
+
+  // State for message reactions
+  const [reactions, setReactions] = useState({
+    thumbsUp: 0,
+    heart: 0
+  });
+
+  // State for uploaded file
+  const [file, setFile] = useState(null);
+
+  // Function to toggle message actions menu
+  const toggleActions = () => {
+    setShowActions(!showActions);
+  };
+
+  // Function to handle reaction
+  const react = (reactionType) => {
+    setReactions(prevState => ({
+      ...prevState,
+      [reactionType]: prevState[reactionType] + 1
+    }));
+  };
+
+  // Function to handle file upload
+  const handleFileUpload = (event) => {
+    const uploadedFile = event.target.files[0];
+    setFile(uploadedFile);
+  };
+
   return (
     <div style={{
       display: 'flex',
@@ -47,30 +78,48 @@ function MessageComponent({ message, imageUrl, time, isCurrentUser }) {
     }}>
       <ProfileBox imageUrl={imageUrl} />
       <div style={{
+        position: 'relative', // To position message actions menu
         maxWidth: '60%',
         padding: '10px',
         borderRadius: '20px',
         ...messageStyle, // Apply dynamic style here
       }}>
-        {message}
+        {/* Message Content */}
+        <div>{message}</div>
+        {/* Message Timestamp */}
         <Timestamp time={time} />
+        {/* Message Actions */}
+        {isCurrentUser && (
+          <div style={{ position: 'absolute', top: '5px', right: '5px' }}>
+            <button onClick={toggleActions}>...</button>
+            {showActions && (
+              <div style={{ position: 'absolute', top: '25px', right: '0', backgroundColor: 'white', border: '1px solid #ccc', borderRadius: '5px', padding: '5px' }}>
+                <ul style={{ listStyleType: 'none', margin: '0', padding: '0' }}>
+                  <li>Edit</li>
+                  <li>Delete</li>
+                </ul>
+              </div>
+            )}
+          </div>
+        )}
+        {/* Message Reactions */}
+        <div style={{ marginTop: '5px' }}>
+          <button onClick={() => react('thumbsUp')} style={{ marginRight: '5px' }}>👍</button>
+          <button onClick={() => react('heart')}>❤️</button>
+          {/* Display reaction counts as subscripts */}
+          {reactions.thumbsUp > 0 && <sup style={{ marginLeft: '5px' }}>{reactions.thumbsUp}</sup>}
+          {reactions.heart > 0 && <sup style={{ marginLeft: '5px' }}>{reactions.heart}</sup>}
+        </div>
+        {/* File Upload */}
+        {isCurrentUser && (
+          <div style={{ marginTop: '10px' }}>
+            <input type="file" onChange={handleFileUpload} />
+            {file && <div>File selected: {file.name}</div>}
+          </div>
+        )}
       </div>
     </div>
   );
 }
 
-// Example usage of MessageComponent inside a functional component
-/*function App() {
-  return (
-    <div style={{ padding: '20px' }}>
-      <MessageComponent
-        message="Hello! How are you today?"
-        imageUrl="https://example.com/path/to/profile.jpg"
-        time={new Date().toISOString()} // Current time; replace with actual message time
-        isCurrentUser={false}
-      />
-      {/* Add more <MessageComponent /> as needed */
-   // </div>
-  //);
-//}
 export default MessageComponent;
