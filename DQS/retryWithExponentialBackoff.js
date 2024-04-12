@@ -1,5 +1,3 @@
-const logger = require("./logger");
-
 async function retryWithExponentialBackoff(
   fn,
   maxAttempts = 3,
