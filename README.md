@@ -29,7 +29,7 @@ In a different terminal, complete the following steps in order to run the backen
 1. Go into the `DQS` directory.
 2. Run the command `node server.js`.
 
-Note: An error may appear upon starting, this is dependent on your system.
+Note: An error may appear upon starting, this is dependent on your system. The program is probably still working, despite the error.
 
 One fix is to complete the following commands:
 
