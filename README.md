@@ -14,7 +14,7 @@ At the moment starting this is a bit complicated. But worry not! Here's a walkth
 
 ### I. Launching Azure
 
-This whole project uses Azure, which can be a bit of a pain in the neck to use. In order for this project to run, you need to:
+This whole project uses Azure and it's web services. In order for this project to run, you need to:
 
 **1. Open Azure at https://portal.azure.com/.**
 **2. Under Resources, open sweng-group-2-database, then open Query Editor.**
